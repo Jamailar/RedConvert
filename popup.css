@@ -63,3 +63,28 @@ body {
     padding: 14px 0;
     font-weight: 500;
   }
+  
+  /* OCR按钮 */
+  #btn-ocr {
+    background: linear-gradient(135deg, #3A8DFF 0%, #6DD5FA 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 12px;
+    transition: transform 0.1s ease, background 0.2s ease;
+  }
+  
+  #btn-ocr:hover {
+    transform: scale(1.03);
+  }
+  
+  #btn-ocr:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }

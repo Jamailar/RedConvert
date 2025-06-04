@@ -23,6 +23,7 @@
       "run_at": "document_idle",
       "js": [
         "libs/jszip.min.js",
+        "libs/tesseract.min.js",
         "content-script.js"
       ]
     }
@@ -38,5 +39,25 @@
       "128": "icons/128.png"
     },
     "default_popup": "popup.html"
-  }
+  },
+  "icons": {
+      "128": "icons/128.png",
+      "256": "icons/256.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "64": "icons/64.png"
+   },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "libs/tesseract.min.js",
+        "libs/worker.min.js",
+        "libs/tesseract-core.wasm",
+        "libs/tesseract-core.wasm.js",
+        "libs/tessdata/eng.traineddata",
+        "libs/tessdata/chi_sim.traineddata"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

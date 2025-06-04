@@ -45,4 +45,16 @@ window.onload = () => {
       window.close();
     });
   });
+
+  // 4. 点击 OCR 按钮事件
+  const btnOcr = document.getElementById('btn-ocr');
+  btnOcr.addEventListener('click', () => {
+    btnOcr.innerText = '正在识别...';
+    btnOcr.disabled = true;
+    // 通知 Content Script 进行OCR提取
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'MANUAL_OCR_SCRAPE' });
+      window.close();
+    });
+  });
 };
