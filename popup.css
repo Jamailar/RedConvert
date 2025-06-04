@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  width: 240px;
+  box-sizing: border-box;
+}
+
+#note-detect-status {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+#note-info {
+  text-align: center;
+}
+
+#note-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  word-break: break-all;
+}
+
+#btn-download {
+  background-color: #e61626;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+#btn-download:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#note-notice {
+  font-size: 13px;
+  color: #a00;
+  text-align: center;
+  padding: 10px 0;
+}

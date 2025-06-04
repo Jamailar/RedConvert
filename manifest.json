@@ -1,0 +1,40 @@
+{
+  "name": "小红书笔记下载器（含 ZIP）",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "一键下载当前小红书笔记，并将标题/正文 & 图片打包成 ZIP 文件",
+  "permissions": [
+    "downloads",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.xiaohongshu.com/*",
+    "https://sns-webpic-qc.xhscdn.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.xiaohongshu.com/discovery/item/*",
+        "https://www.xiaohongshu.com/explore/*"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "libs/jszip.min.js",
+        "content-script.js"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "下载小红书笔记",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    },
+    "default_popup": "popup.html"
+  }
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>小红书笔记下载器</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="popup-container">
+    <!-- 初始状态：检测中 -->
+    <div id="note-detect-status">正在检测页面...</div>
+
+    <!-- 笔记信息：检测到是笔记页后显示 -->
+    <div id="note-info" style="display: none;">
+      <div id="note-title">当前笔记：<span id="title-text"></span></div>
+      <button id="btn-download">一键打包下载</button>
+    </div>
+
+    <!-- 非笔记页提示 -->
+    <div id="note-notice" style="display: none; color: red;">
+      当前页面不是小红书笔记，请先打开笔记页面
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
