@@ -1,5 +1,5 @@
 {
-  "name": "小红书笔记下载器（含 ZIP）",
+  "name": "RC小红书笔记下载器",
   "version": "1.0",
   "manifest_version": 3,
   "description": "一键下载当前小红书笔记，并将标题/正文 & 图片打包成 ZIP 文件",
@@ -8,6 +8,8 @@
     "activeTab",
     "scripting"
   ],
+  "author": "Jamba Hailar",
+  "homepage_url": "https://github.com/Jamailar",
   "host_permissions": [
     "https://www.xiaohongshu.com/*",
     "https://sns-webpic-qc.xhscdn.com/*"

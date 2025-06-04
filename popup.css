@@ -1,47 +1,65 @@
 body {
-  margin: 0;
-  padding: 10px;
-  font-family: Arial, sans-serif;
-  width: 240px;
-  box-sizing: border-box;
-}
-
-#note-detect-status {
-  font-size: 14px;
-  color: #333;
-  text-align: center;
-}
-
-#note-info {
-  text-align: center;
-}
-
-#note-title {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  word-break: break-all;
-}
-
-#btn-download {
-  background-color: #e61626;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  width: 100%;
-}
-
-#btn-download:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-#note-notice {
-  font-size: 13px;
-  color: #a00;
-  text-align: center;
-  padding: 10px 0;
-}
+    margin: 0;
+    padding: 16px;
+    font-family: "Poppins", "PingFang SC", Arial, sans-serif;
+    width: 240px;
+    box-sizing: border-box;
+    background-color: #FFE8DD; /* 浅肤色背景 */
+    color: #333;
+  }
+  
+  /* 状态提示：检测中 */
+  #note-detect-status {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    padding: 12px 0;
+  }
+  
+  /* 信息区居中 */
+  #note-info {
+    text-align: center;
+    padding-top: 8px;
+  }
+  
+  /* 笔记标题 */
+  #note-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #F6451D;
+    margin-bottom: 12px;
+    word-break: break-word;
+  }
+  
+  /* 主按钮 */
+  #btn-download {
+    background: linear-gradient(135deg, #F6451D 0%, #FF8A3A 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.1s ease, background 0.2s ease;
+  }
+  
+  #btn-download:hover {
+    transform: scale(1.03);
+  }
+  
+  #btn-download:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+  
+  /* 非笔记页面提示 */
+  #note-notice {
+    font-size: 13px;
+    color: #b10000;
+    text-align: center;
+    padding: 14px 0;
+    font-weight: 500;
+  }

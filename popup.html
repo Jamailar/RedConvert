@@ -2,23 +2,61 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>小红书笔记下载器</title>
+  <title>RC 小红书下载器</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="popup.css">
+  <style>
+    html, body {
+      width: 360px;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", "PingFang SC", Arial, sans-serif;
+    }
+  </style>
 </head>
 <body>
-  <div id="popup-container">
-    <!-- 初始状态：检测中 -->
+  <!-- 顶部标题栏 -->
+  <header style="
+    background: linear-gradient(135deg, #F6451D 0%, #FF8A3A 100%);
+    color: #fff;
+    padding: 14px 16px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  ">
+    RC 小红书下载器
+  </header>
+
+  <div id="popup-container" style="padding: 16px;">
+    <!-- 初始状态 -->
     <div id="note-detect-status">正在检测页面...</div>
 
-    <!-- 笔记信息：检测到是笔记页后显示 -->
+    <!-- 检测到笔记时显示 -->
     <div id="note-info" style="display: none;">
-      <div id="note-title">当前笔记：<span id="title-text"></span></div>
-      <button id="btn-download">一键打包下载</button>
+      <div id="note-title" style="
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 12px;
+        line-height: 1.4;
+      ">
+        当前笔记标题：<br><span id="title-text" style="color: #F6451D; font-weight: 600;"></span>
+      </div>
+
+      <!-- 下载按钮 -->
+      <button id="btn-download">⬇️ 一键打包下载</button>
+
+      <!-- 预留区 -->
+      <div style="margin-top: 24px; font-size: 12px; color: #999;">
+        （更多功能即将上线...）
+      </div>
     </div>
 
     <!-- 非笔记页提示 -->
-    <div id="note-notice" style="display: none; color: red;">
-      当前页面不是小红书笔记，请先打开笔记页面
+    <div id="note-notice" style="display: none; text-align: center; color: #B10000; font-size: 13px; margin-top: 20px;">
+      未检测到笔记，请在笔记页面使用，或刷新页面
     </div>
   </div>
 
