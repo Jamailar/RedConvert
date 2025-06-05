@@ -32,15 +32,39 @@ document.addEventListener('DOMContentLoaded', () => {
       'ai_rewrite_requirement',
       'ai_example_format',
       'ai_personalization',
+      'ai_models',
     ], (cfg) => {
       console.log('[AI-DEBUG][options] 读取到设置:', cfg);
       document.getElementById('api-base-url').value = cfg.ai_api_base_url || '';
       document.getElementById('api-key').value = cfg.ai_api_key || '';
-      if (cfg.ai_model) document.getElementById('model').value = cfg.ai_model;
       document.getElementById('target-domain').value = cfg.ai_target_domain || '';
       document.getElementById('rewrite-requirement').value = cfg.ai_rewrite_requirement || '';
       document.getElementById('example-format').value = cfg.ai_example_format || '';
       document.getElementById('personalization').value = cfg.ai_personalization || '';
+      // 修复：无模型列表时也能显示已保存模型名
+      const modelSel = document.getElementById('model');
+      modelSel.innerHTML = '';
+      if (Array.isArray(cfg.ai_models) && cfg.ai_models.length > 0) {
+        cfg.ai_models.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m.id;
+          opt.textContent = m.id;
+          modelSel.appendChild(opt);
+        });
+        if (cfg.ai_model) modelSel.value = cfg.ai_model;
+      } else if (cfg.ai_model) {
+        // 没有模型列表但有已保存模型名
+        const opt = document.createElement('option');
+        opt.value = cfg.ai_model;
+        opt.textContent = cfg.ai_model + '（已保存）';
+        modelSel.appendChild(opt);
+        modelSel.value = cfg.ai_model;
+      } else {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = '请先测试API';
+        modelSel.appendChild(opt);
+      }
     });
   }
   loadSettings();
@@ -117,6 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => { statusEl.textContent = ''; }, 2000);
       // 保存后强制刷新并打印
       loadSettings();
+    });
+  });
+
+  // 模型名下拉框变更时立即保存
+  document.getElementById('model').addEventListener('change', function() {
+    const modelId = this.value;
+    chrome.storage.local.set({ ai_model: modelId }, () => {
+      console.log('[AI-DEBUG][options] 已保存模型名:', modelId);
     });
   });
 }); 
