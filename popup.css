@@ -88,3 +88,50 @@ body {
     color: #666;
     cursor: not-allowed;
   }
+  
+  /* 小按钮样式优化 */
+  .small-btn {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #eee;
+    margin-right: 6px;
+    width: auto;
+    min-width: 0;
+    min-height: 72px;
+    font-weight: 500;
+    transition: transform 0.1s ease, background 0.2s ease;
+  }
+  .small-btn:hover {
+    transform: scale(1.03);
+    background: #f0f0f0;
+  }
+  
+  /* 大按钮悬浮动画 */
+/* 大按钮（空心风格 + 柔和悬浮） */
+.big-btn {
+    font-size: 17px;
+    padding: 12px 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #F6451D;
+    border: 1px solid #F6451D;
+    width: 100%;
+    font-weight: 500;
+    margin-top: 18px;
+    box-shadow: none;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.1s ease;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* 悬浮时：浅渐变填充 + 白字 + 微缩放 */
+  .big-btn:hover {
+    background: linear-gradient(90deg, #fbc4b3 0%, #ffc6a1 100%);
+    color: #fff;
+    transform: scale(1.03);
+  }

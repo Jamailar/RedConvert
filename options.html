@@ -129,7 +129,7 @@
       <label>
         AI 接口端口（API Base URL）
         <div style="display:flex;align-items:center;gap:8px;">
-          <input type="text" id="api-base-url" placeholder="如：https://api.chatanywhere.tech/v1" required style="flex:1;" />
+          <input type="text" id="api-base-url" placeholder="如：https://api.openai.com/v1" required style="flex:1;" />
           <button type="button" id="btn-test-api" style="padding:4px 10px;font-size:13px;">测试</button>
           <span id="api-test-status" style="margin-left:6px;font-size:15px;"></span>
         </div>
@@ -164,11 +164,20 @@
       </label>
 
       <label>
-        示范格式
+        模仿语气风格（可选）
         <textarea
           id="example-format"
           rows="2"
-          placeholder="如：分段、加小标题..."
+          placeholder="在这里放入示例内容，AI会模仿其语气风格..."
+        ></textarea>
+      </label>
+
+      <label>
+        个性化（可选）
+        <textarea
+          id="personalization"
+          rows="2"
+          placeholder="填入作者的个人信息，AI会参考其经历和数据知识库进行创作"
         ></textarea>
       </label>
 

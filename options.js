@@ -28,18 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
       'ai_api_base_url',
       'ai_api_key',
       'ai_model',
-      'ai_models',
       'ai_target_domain',
       'ai_rewrite_requirement',
-      'ai_example_format'
-    ], (result) => {
-      console.log('[AI-DEBUG][options] 读取到设置:', result);
-      document.getElementById('api-base-url').value = result.ai_api_base_url || '';
-      document.getElementById('api-key').value = result.ai_api_key || '';
-      fillModelSelect(result.ai_models, result.ai_model);
-      document.getElementById('target-domain').value = result.ai_target_domain || '';
-      document.getElementById('rewrite-requirement').value = result.ai_rewrite_requirement || '';
-      document.getElementById('example-format').value = result.ai_example_format || '';
+      'ai_example_format',
+      'ai_personalization',
+    ], (cfg) => {
+      console.log('[AI-DEBUG][options] 读取到设置:', cfg);
+      document.getElementById('api-base-url').value = cfg.ai_api_base_url || '';
+      document.getElementById('api-key').value = cfg.ai_api_key || '';
+      if (cfg.ai_model) document.getElementById('model').value = cfg.ai_model;
+      document.getElementById('target-domain').value = cfg.ai_target_domain || '';
+      document.getElementById('rewrite-requirement').value = cfg.ai_rewrite_requirement || '';
+      document.getElementById('example-format').value = cfg.ai_example_format || '';
+      document.getElementById('personalization').value = cfg.ai_personalization || '';
     });
   }
   loadSettings();
@@ -108,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ai_target_domain: document.getElementById('target-domain').value.trim(),
       ai_rewrite_requirement: document.getElementById('rewrite-requirement').value.trim(),
       ai_example_format: document.getElementById('example-format').value.trim(),
+      ai_personalization: document.getElementById('personalization').value.trim(),
     };
     console.log('[AI-DEBUG][options] 保存设置:', data);
     chrome.storage.local.set(data, () => {

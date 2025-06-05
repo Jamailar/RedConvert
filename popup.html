@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>RC 小红书下载器</title>
+  <title>RC 小红书复制AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="popup.css">
   <style>
@@ -22,22 +22,7 @@
       border: 1px solid #eee;
       margin-right: 8px;
     }
-    .big-btn {
-      font-size: 17px;
-      padding: 12px 0;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #F6451D 0%, #FF8A3A 100%);
-      color: #fff;
-      border: none;
-      width: 100%;
-      font-weight: bold;
-      margin-top: 18px;
-      box-shadow: 0 2px 8px rgba(246,69,29,0.08);
-      transition: background 0.2s;
-    }
-    .big-btn:hover {
-      background: linear-gradient(90deg, #FF8A3A 0%, #F6451D 100%);
-    }
+
     #ai-rewrite-status .ai-result-box {
       background: #f7f8fa;
       border-radius: 10px;
@@ -63,7 +48,7 @@
     text-align: center;
     border-bottom: 1px solid #eee;
   ">
-    RC 小红书下载器
+    RC 小红书辅助创作AI
   </header>
 
   <div id="popup-container" style="padding: 16px 16px 56px 16px; position: relative; min-height: 320px;">
@@ -82,15 +67,17 @@
         当前笔记标题：<br><span id="title-text" style="color: #F6451D; font-weight: 600;"></span>
       </div>
 
-      <!-- 下载按钮 -->
-      <button id="btn-download" class="small-btn">⬇️ 一键打包下载</button>
-
-      <!-- OCR按钮 -->
-      <button id="btn-ocr" class="small-btn" style="margin-top:8px;">🧠 提取内容（OCR）</button>
+      <!-- 下载+OCR按钮横向并排 -->
+      <div style="display: flex; flex-direction: row; gap: 8px; justify-content: center; align-items: center; margin-bottom: 4px;">
+        <button id="btn-download" class="small-btn">⬇️ 一键打包下载</button>
+        <button id="btn-ocr" class="small-btn" style="margin-top:0;">🔍 提取图片内容OCR*</button>
+      </div>
       <!-- OCR进度/结果展示区 -->
       <div id="ocr-status" style="margin-top:10px;min-height:24px;font-size:13px;color:#F6451D;"></div>
       <!-- AI仿写按钮 -->
-      <button id="btn-ai-rewrite" class="big-btn">🤖 AI仿写</button>
+      <button id="btn-ai-rewrite" class="big-btn">✏️ AI文字仿写</button>
+      <button id="btn-ai-rewrite-image" class="big-btn">✨ AI图文仿写*</button>
+      <button id="btn-generate-cover" class="big-btn">🖼️ 生成相似封面图*</button>
       <!-- AI仿写进度/结果展示区 -->
       <div id="ai-rewrite-status" style="margin-top:10px;min-height:24px;font-size:13px;color:#1a73e8;"></div>
 
@@ -108,7 +95,21 @@
 
   <!-- 左下角设置按钮 -->
   <button id="btn-settings" style="position: fixed; left: 16px; bottom: 12px; font-size: 15px; background: none; border: none; color: #888; cursor: pointer; z-index: 10;">⚙️ 设置</button>
+  <!-- 右下角版本号 -->
+  <div id="version-info" style="position: fixed; right: 16px; bottom: 12px; color: #bbb; font-size: 12px; z-index: 10;"></div>
 
   <script src="popup.js"></script>
+  <script>
+    document.getElementById('btn-ocr').onclick = function() {
+      window.open('image-tool.html', '_blank');
+    };
+    document.getElementById('btn-ai-rewrite-image').onclick = function() {
+      window.open('image-tool.html', '_blank');
+    };
+    document.getElementById('btn-generate-cover').onclick = function() {
+      window.open('image-tool.html', '_blank');
+    };
+
+  </script>
 </body>
 </html>

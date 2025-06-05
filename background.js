@@ -75,3 +75,41 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     // 可扩展为自动复制到剪贴板或通知用户
   }
 });
+
+// 自动检查更新功能
+const GITHUB_LATEST_URL = 'https://github.com/Jamailar/RedConvert/releases/latest';
+let lastCheckedVersion = null;
+
+async function fetchLatestVersion() {
+  try {
+    const resp = await fetch(GITHUB_LATEST_URL, { redirect: 'follow' });
+    const text = await resp.text();
+    // 简单正则匹配版本号（如 v1.0.1 或 1.0.1）
+    const match = text.match(/releases\/tag\/(v?\d+\.\d+(?:\.\d+)?)/i);
+    if (match && match[1]) {
+      return match[1].replace(/^v/, '');
+    }
+    // 兼容只显示版本号的情况
+    const alt = text.match(/Latest.*?([\d.]+)/i);
+    if (alt && alt[1]) return alt[1];
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function checkForUpdate() {
+  const manifest = chrome.runtime.getManifest();
+  const currentVersion = manifest.version;
+  const latestVersion = await fetchLatestVersion();
+  if (latestVersion && latestVersion !== currentVersion && latestVersion !== lastCheckedVersion) {
+    lastCheckedVersion = latestVersion;
+    // 通知所有popup页面
+    chrome.runtime.sendMessage({ action: 'UPDATE_AVAILABLE', latestVersion });
+  }
+}
+
+// 启动时检查
+checkForUpdate();
+// 每24小时检查一次
+setInterval(checkForUpdate, 24 * 60 * 60 * 1000);

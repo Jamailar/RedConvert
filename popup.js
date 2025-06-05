@@ -49,26 +49,19 @@ window.onload = () => {
   // 4. 点击 OCR 按钮事件
   const btnOcr = document.getElementById('btn-ocr');
   btnOcr.addEventListener('click', () => {
-    btnOcr.innerText = '正在识别...';
-    btnOcr.disabled = true;
-    document.getElementById('ocr-status').innerHTML = '<span class="loading-spinner"></span> 正在识别图片内容...';
-    // 通知 Content Script 进行OCR提取
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'MANUAL_OCR_SCRAPE' });
-      // 不再关闭popup，等待进度/结果
-    });
+    window.open('image-tool.html', '_blank');
   });
 
-  // 监听Content Script的进度/结果消息
-  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    if (msg.action === 'OCR_PROGRESS') {
-      document.getElementById('ocr-status').innerText = msg.text;
-    }
-    if (msg.action === 'OCR_RESULT') {
-      document.getElementById('ocr-status').innerText = msg.text;
-      btnOcr.innerText = '🧠 提取内容（OCR）';
-      btnOcr.disabled = false;
-    }
+  // AI图文仿写按钮
+  const btnAiRewriteImage = document.getElementById('btn-ai-rewrite-image');
+  btnAiRewriteImage.addEventListener('click', () => {
+    window.open('image-tool.html', '_blank');
+  });
+
+  // 生成相似封面图按钮
+  const btnGenerateCover = document.getElementById('btn-generate-cover');
+  btnGenerateCover.addEventListener('click', () => {
+    window.open('image-tool.html', '_blank');
   });
 
   // 设置按钮跳转到options.html
@@ -131,17 +124,19 @@ window.onload = () => {
       //'ai_system_prompt', // 系统提示词将硬编码
       'ai_target_domain',
       'ai_rewrite_requirement',
-      'ai_example_format'
+      'ai_example_format',
+      'ai_personalization'
     ], async (cfg) => {
       // 系统提示词硬编码（支持占位符）
       // 例：const SYSTEM_PROMPT = '你是一名{{domain}}领域的内容改写助手，要求：{{requirement}}。输出格式：{{format}}。';
-      const SYSTEM_PROMPT = '你是一名专业的小红书内容创作者，我会发给你我认为很好的小红书内容笔记，你需要总结提炼其值得借鉴的地方，然后写一篇{{domain}}领域的相似的内容，要求：{{requirement}}。输出格式：{{format}}。下面发给你你需要仿写的内容：'; // <-- 在这里自定义模板
+      const SYSTEM_PROMPT = '你是一名专业的小红书内容创作者，我会发给你我认为很好的小红书内容笔记，你需要吸收其值得借鉴贵流量优点，然后写一篇{{domain}}领域的相似的内容，要求：{{requirement}}。输出格式：{{format}}。个性化信息：{{personalization}}。下面发给你你需要仿写的内容：'; // <-- 在这里自定义模板
       // 动态替换占位符
-      function renderSystemPrompt(domain, requirement, format) {
+      function renderSystemPrompt(domain, requirement, format, personalization) {
         return SYSTEM_PROMPT
           .replace(/{{domain}}/g, domain || '')
           .replace(/{{requirement}}/g, requirement || '')
-          .replace(/{{format}}/g, format || '');
+          .replace(/{{format}}/g, format || '')
+          .replace(/{{personalization}}/g, personalization || '');
       }
       // 校验必填项（除示范格式外）
       if (!cfg.ai_api_base_url || !cfg.ai_api_key || !cfg.ai_model) {
@@ -159,7 +154,7 @@ window.onload = () => {
       // 3. 拼接prompt
       let userPrompt = `【原文标题】\n${noteTitle}\n\n【原文内容】\n${noteText}`;
       // 4. 组装OpenAI风格请求体
-      const systemPromptFinal = renderSystemPrompt(cfg.ai_target_domain, cfg.ai_rewrite_requirement, cfg.ai_example_format);
+      const systemPromptFinal = renderSystemPrompt(cfg.ai_target_domain, cfg.ai_rewrite_requirement, cfg.ai_example_format, cfg.ai_personalization);
       console.log('[AI-DEBUG] 最终系统提示词:', systemPromptFinal);
       console.log('[AI-DEBUG] 最终用户提示词:', userPrompt);
       const messages = [
@@ -212,5 +207,53 @@ window.onload = () => {
       btnAiRewrite.innerText = '🤖 AI仿写';
       btnAiRewrite.disabled = false;
     });
+  });
+
+  // 动态显示manifest.json中的版本号
+  const versionInfo = document.getElementById('version-info');
+  if (versionInfo && chrome.runtime.getManifest) {
+    versionInfo.textContent = 'v' + chrome.runtime.getManifest().version;
+  }
+
+  // 主动检查更新
+  const GITHUB_LATEST_URL = 'https://github.com/Jamailar/RedConvert/releases/latest';
+  function showUpdateBanner(latestVersion) {
+    if (document.getElementById('update-banner')) return;
+    const banner = document.createElement('div');
+    banner.id = 'update-banner';
+    banner.style.cssText = 'background:#F6451D;color:#fff;padding:8px 0;text-align:center;font-size:14px;font-weight:bold;cursor:pointer;position:fixed;left:16px;right:16px;bottom:48px;z-index:9;border-radius:6px;margin:0 0 8px 0;';
+    banner.innerHTML = `发现新版本 v${latestVersion}，点击前往下载`;
+    banner.onclick = () => {
+      window.open('https://github.com/Jamailar/RedConvert/releases/latest', '_blank');
+    };
+    // 插入到设置按钮上方（footer上方）
+    document.body.appendChild(banner);
+  }
+
+  async function checkForUpdate() {
+    try {
+      const resp = await fetch(GITHUB_LATEST_URL, { redirect: 'follow' });
+      // 直接用 resp.url 提取版本号
+      const url = resp.url || '';
+      const match = url.match(/releases\/tag\/(v?\d+(?:\.\d+)+)/i);
+      let latestVersion = null;
+      if (match && match[1]) {
+        latestVersion = match[1].replace(/^v/, '');
+      }
+      const currentVersion = chrome.runtime.getManifest().version;
+      if (latestVersion && latestVersion !== currentVersion) {
+        showUpdateBanner(latestVersion);
+      }
+    } catch (e) {
+      // 可选：console.warn('检查更新失败', e);
+    }
+  }
+  checkForUpdate();
+
+  // 监听后台更新消息
+  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    if (msg.action === 'UPDATE_AVAILABLE' && msg.latestVersion) {
+      showUpdateBanner(msg.latestVersion);
+    }
   });
 };

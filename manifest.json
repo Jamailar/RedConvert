@@ -1,6 +1,6 @@
 {
   "name": "RC 小红书辅助创作 AI",
-  "version": "1.0",
+  "version": "0.0.1",
   "manifest_version": 3,
   "description": "一键下载当前小红书笔记，并将标题/正文 & 图片打包成 ZIP 文件",
   "permissions": [
@@ -13,7 +13,8 @@
   "homepage_url": "https://github.com/Jamailar",
   "host_permissions": [
     "https://www.xiaohongshu.com/*",
-    "https://sns-webpic-qc.xhscdn.com/*"
+    "https://sns-webpic-qc.xhscdn.com/*",
+    "https://github.com/*"
   ],
   "content_scripts": [
     {
@@ -24,7 +25,6 @@
       "run_at": "document_idle",
       "js": [
         "libs/jszip.min.js",
-        "libs/tesseract.min.js",
         "content-script.js"
       ]
     }
@@ -52,12 +52,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "libs/tesseract.min.js",
-        "libs/worker.min.js",
-        "libs/tesseract-core.wasm",
-        "libs/tesseract-core.wasm.js",
-        "libs/tessdata/eng.traineddata",
-        "libs/tessdata/chi_sim.traineddata"
+        "image-tool.html"
       ],
       "matches": ["<all_urls>"]
     }
