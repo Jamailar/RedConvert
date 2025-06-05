@@ -1,6 +1,6 @@
 {
   "name": "RC 小红书辅助创作 AI",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "manifest_version": 3,
   "description": "一键下载当前小红书笔记，并将标题/正文 & 图片打包成 ZIP 文件",
   "permissions": [
