@@ -18,6 +18,11 @@
 
 ## 安装与本地开发
 
+🎥 点击查看视频演示：
+
+[👉 在 Bilibili 上观看](https://www.bilibili.com/video/BV1RwTxzaEAJ)
+
+
 ### 1. 准备工作
 - 前往 [Releases 页面](https://github.com/Jamailar/RedConvert/releases/latest) 下载最新的 zip 包
 - 解压 zip 包到本地任意文件夹
