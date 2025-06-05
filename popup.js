@@ -129,7 +129,7 @@ window.onload = () => {
     ], async (cfg) => {
       // 系统提示词硬编码（支持占位符）
       // 例：const SYSTEM_PROMPT = '你是一名{{domain}}领域的内容改写助手，要求：{{requirement}}。输出格式：{{format}}。';
-      const SYSTEM_PROMPT = '你是一名专业的小红书内容创作者，我会发给你我认为很好的小红书内容笔记，你需要吸收其值得借鉴贵流量优点，然后写一篇{{domain}}领域的相似的内容，要求：{{requirement}}。输出格式：{{format}}。个性化信息：{{personalization}}。下面发给你你需要仿写的内容：'; // <-- 在这里自定义模板
+      const SYSTEM_PROMPT = '你是一名专业的小红书内容创作者，我会发给你一篇流量很好的小红书内容笔记，你需要吸收其值得借鉴贵优点，然后写一篇和{{domain}}领域的相似的内容（非常重要），要求：{{requirement}}。输出语言风格参考（可选）：{{format}}。如果需要用到个人信息，个性化信息：{{personalization}}。下面发给你你需要仿写的内容，只需要发给你你写出的最后的标题和正文，不需要其他内容：'; // <-- 在这里自定义模板
       // 动态替换占位符
       function renderSystemPrompt(domain, requirement, format, personalization) {
         return SYSTEM_PROMPT
