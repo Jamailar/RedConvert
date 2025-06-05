@@ -13,6 +13,43 @@
       padding: 0;
       font-family: "Poppins", "PingFang SC", Arial, sans-serif;
     }
+    .small-btn {
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #eee;
+      margin-right: 8px;
+    }
+    .big-btn {
+      font-size: 17px;
+      padding: 12px 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #F6451D 0%, #FF8A3A 100%);
+      color: #fff;
+      border: none;
+      width: 100%;
+      font-weight: bold;
+      margin-top: 18px;
+      box-shadow: 0 2px 8px rgba(246,69,29,0.08);
+      transition: background 0.2s;
+    }
+    .big-btn:hover {
+      background: linear-gradient(90deg, #FF8A3A 0%, #F6451D 100%);
+    }
+    #ai-rewrite-status .ai-result-box {
+      background: #f7f8fa;
+      border-radius: 10px;
+      border: 1px solid #e3e6eb;
+      padding: 14px 12px;
+      margin-top: 8px;
+      color: #222;
+      font-size: 15px;
+      line-height: 1.7;
+      word-break: break-all;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
   </style>
 </head>
 <body>
@@ -29,7 +66,7 @@
     RC 小红书下载器
   </header>
 
-  <div id="popup-container" style="padding: 16px;">
+  <div id="popup-container" style="padding: 16px 16px 56px 16px; position: relative; min-height: 320px;">
     <!-- 初始状态 -->
     <div id="note-detect-status">正在检测页面...</div>
 
@@ -46,10 +83,16 @@
       </div>
 
       <!-- 下载按钮 -->
-      <button id="btn-download">⬇️ 一键打包下载</button>
+      <button id="btn-download" class="small-btn">⬇️ 一键打包下载</button>
 
       <!-- OCR按钮 -->
-      <button id="btn-ocr" style="margin-top:12px;">🧠 提取内容（OCR）</button>
+      <button id="btn-ocr" class="small-btn" style="margin-top:8px;">🧠 提取内容（OCR）</button>
+      <!-- OCR进度/结果展示区 -->
+      <div id="ocr-status" style="margin-top:10px;min-height:24px;font-size:13px;color:#F6451D;"></div>
+      <!-- AI仿写按钮 -->
+      <button id="btn-ai-rewrite" class="big-btn">🤖 AI仿写</button>
+      <!-- AI仿写进度/结果展示区 -->
+      <div id="ai-rewrite-status" style="margin-top:10px;min-height:24px;font-size:13px;color:#1a73e8;"></div>
 
       <!-- 预留区 -->
       <div style="margin-top: 24px; font-size: 12px; color: #999;">
@@ -62,6 +105,9 @@
       未检测到笔记，请在笔记页面使用，或刷新页面
     </div>
   </div>
+
+  <!-- 左下角设置按钮 -->
+  <button id="btn-settings" style="position: fixed; left: 16px; bottom: 12px; font-size: 15px; background: none; border: none; color: #888; cursor: pointer; z-index: 10;">⚙️ 设置</button>
 
   <script src="popup.js"></script>
 </body>

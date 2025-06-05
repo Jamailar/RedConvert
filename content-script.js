@@ -127,6 +127,14 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         alert('笔记数据加载超时，请稍后重试');
       });
   }
+
+  if (msg.action === 'GET_NOTE_TEXT') {
+    const textEls = getNoteTextEls();
+    const paragraphs = textEls.map(span => span.innerText.trim()).filter(Boolean);
+    const fullText = paragraphs.join('\n\n');
+    sendResponse({ text: fullText });
+    return;
+  }
 });
 
 // 主函数：打包正文和图片为ZIP
@@ -228,7 +236,7 @@ async function scrapeAndOcrToTxt() {
       try {
         const { createWorker } = window.Tesseract;
         // 一次性加载中英文模型
-        const worker = await createWorker('chi_sim');
+        const worker = await createWorker('eng+chi_sim');
         if (typeof worker.setLogger === 'function') {
           await worker.setLogger((msg) => {
             console.log('[OCR 进度]', msg);

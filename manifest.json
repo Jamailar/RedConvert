@@ -1,12 +1,13 @@
 {
-  "name": "RC小红书笔记下载器",
+  "name": "RC 小红书辅助创作 AI",
   "version": "1.0",
   "manifest_version": 3,
   "description": "一键下载当前小红书笔记，并将标题/正文 & 图片打包成 ZIP 文件",
   "permissions": [
     "downloads",
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage"
   ],
   "author": "Jamba Hailar",
   "homepage_url": "https://github.com/Jamailar",
@@ -47,6 +48,7 @@
       "48": "icons/48.png",
       "64": "icons/64.png"
    },
+  "options_page": "options.html",
   "web_accessible_resources": [
     {
       "resources": [
